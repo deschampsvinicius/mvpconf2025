@@ -1,7 +1,7 @@
 param location string = resourceGroup().location
 param functionAppName string = 'mvpconf-blumenau-function'
 param storageAccountName string = 'mvpconfblumenaustg'
-param keyVaultName string = 'mvpconf-blumenau-akv'
+param keyVaultName string = 'mvpconf-blumenau-akv2'
 
 resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: storageAccountName
