@@ -46,7 +46,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'KEY_VAULT_URL'
-          value: 'https://${keyVaultName}.vault.azure.net/'
+          value: 'https://${keyVaultName}.${environment().suffixes.keyVaultDns}'
         }
       ]
     }
