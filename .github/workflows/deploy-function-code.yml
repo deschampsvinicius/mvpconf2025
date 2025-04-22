@@ -37,7 +37,7 @@ jobs:
           sudo apt-get install azure-functions-core-tools-4
 
       - name: Install dependencies
-        run: pip install -r ../requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Deploy Function App
         run: |
