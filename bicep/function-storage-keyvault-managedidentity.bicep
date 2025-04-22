@@ -1,7 +1,7 @@
 param location string = resourceGroup().location
 param functionAppName string = 'mvpconf-blumenau-function'
 param storageAccountName string = 'mvpconfblumenaustg'
-param keyVaultName string = 'mvpconf-blumenau-akv2'
+param keyVaultName string = 'mvpconf-blumenau-akv3'
 @secure()
 param demoSecretValue string
 
