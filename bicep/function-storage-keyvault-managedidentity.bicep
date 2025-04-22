@@ -90,12 +90,9 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   }
 }
 
-resource demoSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01-preview' = {
+resource demoSecret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
   name: format('{0}/demo-secret', keyVault.name)
   properties: {
     value: demoSecretValue
   }
-  dependsOn: [
-    keyVault
-  ]
 }
