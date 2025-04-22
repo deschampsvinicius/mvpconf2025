@@ -57,7 +57,7 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'KEY_VAULT_URL'
-          value: 'https://${keyVault.properties.vaultUri}'
+          value: '${keyVault.properties.vaultUri}'
         }
       ]
     }
