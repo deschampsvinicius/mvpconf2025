@@ -19,12 +19,13 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
     name: 'Y1'
     tier: 'Dynamic'
   }
+  kind: 'linux'
 }
 
 resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   name: functionAppName
   location: location
-  kind: 'functionapp'
+  kind: 'functionapp,linux'
   identity: {
     type: 'SystemAssigned'
   }
@@ -39,6 +40,10 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
           value: 'python'
+        }
+        {
+          name: 'linuxFxVersion'
+          value: 'Python|3.10'
         }
         {
           name: 'AzureWebJobsStorage'
