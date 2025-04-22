@@ -2,6 +2,8 @@ param location string = resourceGroup().location
 param functionAppName string = 'mvpconf-blumenau-function'
 param storageAccountName string = 'mvpconfblumenaustg'
 param keyVaultName string = 'mvpconf-blumenau-akv2'
+@secure()
+param demoSecretValue string
 
 resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: storageAccountName
@@ -50,11 +52,11 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'AzureWebJobsStorage'
-          value: value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
         }
         {
           name: 'KEY_VAULT_URL'
-          value: 'https://${keyVaultName}.${environment().suffixes.keyvaultDns}'
+          value: 'https://${keyVault.properties.vaultUri}'
         }
       ]
     }
@@ -86,4 +88,14 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7') // Key Vault Secrets User
     principalType: 'ServicePrincipal'
   }
+}
+
+resource demoSecret 'Microsoft.KeyVault/vaults/secrets@2023-02-01-preview' = {
+  name: '\${keyVault.name}/demo-secret'
+  properties: {
+    value: demoSecretValue
+  }
+  dependsOn: [
+    keyVault
+  ]
 }
