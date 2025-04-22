@@ -25,4 +25,4 @@ jobs:
         run: |
           az deployment group create \
             --resource-group mvpconf \
-            --template-file ./bicep/function_keyvault_managed_identity.bicep
+            --template-file ./bicep/function-storage-keyvault-managedidentity.bicep
