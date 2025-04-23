@@ -38,18 +38,15 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
     serverFarmId: appServicePlan.id
     siteConfig: {
       pythonVersion: '3.9'
+      linuxFxVersion: 'Python|3.9'
       appSettings: [
         {
           name: 'FUNCTIONS_EXTENSION_VERSION'
-          value: '~3'
+          value: '~4'
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'python'
-        }
-        {
-          name: 'linuxFxVersion'
-          value: 'Python|3.9'
+          value: 'Python'
         }
         {
           name: 'AzureWebJobsStorage'
