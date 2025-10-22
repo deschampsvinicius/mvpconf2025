@@ -1,7 +1,7 @@
 param location string = resourceGroup().location
-param functionAppName string = 'mvpconf-blumenau-function'
-param storageAccountName string = 'mvpconfblumenaustg'
-param keyVaultName string = 'mvpconf-blumenau-akv'
+param functionAppName string = 'mvpconf-saopaulo-2025'
+param storageAccountName string = 'mvpconfsaopaulostg'
+param keyVaultName string = 'mvpconf-saopaulo-akv'
 @secure()
 param demoSecretValue string
 
