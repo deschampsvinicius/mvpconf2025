@@ -1,7 +1,7 @@
 param location string = resourceGroup().location
 param functionAppName string = 'mvpconf-saopaulo-2025'
 param storageAccountName string = 'mvpconfsaopaulostg'
-param keyVaultName string = 'mvpconf-saopaulo-akv'
+param keyVaultName string = 'mvpconfsaopauloakv'
 @secure()
 param demoSecretValue string
 
@@ -46,15 +46,16 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
         }
         {
           name: 'FUNCTIONS_WORKER_RUNTIME'
-          value: 'Python'
+          value: 'python'
         }
         {
           name: 'AzureWebJobsStorage'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${storage.listKeys().keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${storage.name};AccountKey=${listKeys(storage.id, storage.apiVersion).keys[0].value};EndpointSuffix=${environment().suffixes.storage}'
+'
         }
         {
           name: 'KEY_VAULT_URL'
-          value: '${keyVault.properties.vaultUri}'
+          value: keyVault.properties.vaultUri
         }
       ]
     }
@@ -73,8 +74,6 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
     tenantId: subscription().tenantId
     accessPolicies: []
     enableRbacAuthorization: true
-    enabledForDeployment: true
-    enabledForTemplateDeployment: true
   }
 }
 
@@ -83,7 +82,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   scope: keyVault
   properties: {
     principalId: functionApp.identity.principalId
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7') // Key Vault Secrets User
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '4633458b-17de-408a-b874-0445c86b69e6') // Key Vault Secrets User
     principalType: 'ServicePrincipal'
   }
 }
