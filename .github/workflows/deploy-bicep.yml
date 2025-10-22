@@ -31,6 +31,6 @@ jobs:
       - name: Deploy do Bicep
         run: |
           az deployment group create \
-            --resource-group mvpconf \
+            --resource-group MVPConf \
             --template-file ./bicep/function-storage-keyvault-managedidentity.bicep \
             --parameters demoSecretValue="${{ secrets.DEMO_SECRET }}"
